@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fully_authotication_app/screens/register.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -72,10 +74,21 @@ class _LoginPageState extends State<LoginPage> {
                     RichText(
                       text: TextSpan(
                           text: "Don't have an account ? ",
+                          style: TextStyle(color: Colors.black),
                           children: <TextSpan>[
                             TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Register()));
+                                  },
                                 text: "Register",
-                                style: TextStyle(fontWeight: FontWeight.bold))
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey,
+                                    fontSize: 18))
                           ]),
                     )
                   ],

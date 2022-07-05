@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const Text("Login",
+                    const Text("Register",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 20),

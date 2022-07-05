@@ -68,13 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     RichText(
                       text: TextSpan(
                           text: "Don't have an account ? ",
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           children: <TextSpan>[
                             TextSpan(
                                 recognizer: TapGestureRecognizer()
@@ -82,10 +82,11 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Register()));
+                                            builder: (context) =>
+                                                const Register()));
                                   },
                                 text: "Register",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.blueGrey,
                                     fontSize: 18))

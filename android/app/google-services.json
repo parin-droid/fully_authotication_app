@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "331514851330",
+    "project_id": "fully-authentication-app",
+    "storage_bucket": "fully-authentication-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331514851330:android:3aee7feb51ea1f1872b71b",
+        "android_client_info": {
+          "package_name": "com.example.fully_authotication_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331514851330-r3fqc7lj043qtt3jrnpmg3c671ti4vk5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fully_authotication_app",
+            "certificate_hash": "3a1e310d215fda4db148f3fab9f53613eb8cfb34"
+          }
+        },
+        {
+          "client_id": "331514851330-kcbpencboj3b3ugfvlm065632srsk442.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNMsdZ7V8Q3reTxIlHPoiER3XDCDu5Mr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331514851330-kcbpencboj3b3ugfvlm065632srsk442.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

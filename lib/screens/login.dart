@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fully_authotication_app/providers/firebase_Provider.dart';
-import 'package:fully_authotication_app/screens/home_screen.dart';
+import 'package:fully_authotication_app/screens/drawer_page.dart';
 import 'package:fully_authotication_app/screens/register.dart';
 import 'package:provider/provider.dart';
 
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
+                                        builder: (context) => DrawerPage()));
                               } else {
                                 print("User does not Exists");
                               }

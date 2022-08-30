@@ -3,6 +3,7 @@ import 'package:fully_authotication_app/repositry/login_repositry.dart';
 
 class FirebaseProvider extends ChangeNotifier {
   final Repository repository;
+  int currentIndex = 0;
 
   FirebaseProvider(this.repository);
 

@@ -5,6 +5,7 @@ import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:fully_authotication_app/providers/index_provider.dart';
 import 'package:fully_authotication_app/repositry/login_repositry.dart';
 import 'package:fully_authotication_app/screens/demo_screen2.dart';
 import 'package:fully_authotication_app/utils/mytheme.dart';
@@ -22,6 +23,7 @@ class _DemoScreenState extends State<DemoScreen> {
   final AudioPlayer audioPlayer = AudioPlayer();
   bool isPlay = false;
   int currentIndex = 0;
+  int mainIndex = 0;
   List<SliderList> sliderList = [
     SliderList(
         image:
@@ -44,7 +46,7 @@ class _DemoScreenState extends State<DemoScreen> {
         qty: 15,
         audio: 'demo3.mpeg',
         isPlaying: false),
-    SliderList(
+    /*  SliderList(
         image:
             "https://img.freepik.com/free-vector/copy-space-violet-wavy-shapes-background_23-2148403375.jpg?w=2000",
         name: "Honey Singh",
@@ -57,7 +59,7 @@ class _DemoScreenState extends State<DemoScreen> {
         name: "Badshah",
         qty: 26,
         audio: 'demo5.mpeg',
-        isPlaying: false),
+        isPlaying: false),*/
   ];
 
   @override
@@ -83,6 +85,7 @@ class _DemoScreenState extends State<DemoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final songIndex = context.watch<IndexProvider>();
     final Repository repository;
     final provider = context.read<MyTheme>();
     return WillPopScope(
@@ -95,16 +98,21 @@ class _DemoScreenState extends State<DemoScreen> {
             int duration = await audioPlayer.getDuration();
             print(cuttentPosition);
             print("duration : $duration");*/
-            if (sliderList1[currentIndex].isPlaying == true) {
+            if (mainList[mainIndex]
+                    .sliderList![songIndex.currentIndex]
+                    .isPlaying ==
+                true) {
               await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => DemoScreen2(
-                            isPlay: sliderList1[currentIndex].isPlaying,
+                            isPlay: mainList[mainIndex]
+                                .sliderList![songIndex.currentIndex]
+                                .isPlaying,
                             audioPlayer: audioPlayer,
-                            list: sliderList1,
+                            list: mainList[mainIndex].sliderList!,
                             isActive: true,
-                            index: currentIndex,
+                            index: songIndex.currentIndex,
                           )));
               setState(() {});
             } else {
@@ -112,11 +120,13 @@ class _DemoScreenState extends State<DemoScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => DemoScreen2(
-                            isPlay: sliderList1[currentIndex].isPlaying,
+                            isPlay: mainList[mainIndex]
+                                .sliderList![songIndex.currentIndex]
+                                .isPlaying,
                             audioPlayer: audioPlayer,
-                            list: sliderList1,
+                            list: mainList[mainIndex].sliderList!,
                             isActive: true,
-                            index: currentIndex,
+                            index: songIndex.currentIndex,
                           )));
               setState(() {});
             }
@@ -128,7 +138,7 @@ class _DemoScreenState extends State<DemoScreen> {
               elevation: 8,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFF25073E),
+                    color: const Color(0xFF25073E),
                     borderRadius: BorderRadius.circular(25)),
                 child: ListTile(
                   leading: Container(
@@ -138,36 +148,49 @@ class _DemoScreenState extends State<DemoScreen> {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(25)),
                     child: Image.network(
-                      sliderList[currentIndex].image!,
+                      mainList[mainIndex]
+                          .sliderList![songIndex.currentIndex]
+                          .image!,
                       fit: BoxFit.cover,
                     ),
                   ),
                   title: Text(
-                    sliderList[currentIndex].name!,
+                    mainList[mainIndex]
+                        .sliderList![songIndex.currentIndex]
+                        .name!,
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  subtitle: const Text(
-                    "Beling Alus",
-                    style: TextStyle(color: Colors.grey),
+                  subtitle: Text(
+                    sliderList1[songIndex.currentIndex].details!,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                   trailing: GestureDetector(
                     onTap: () async {
                       setState(() {
-                        sliderList1[currentIndex].isPlaying =
-                            !sliderList1[currentIndex].isPlaying;
+                        mainList[mainIndex]
+                                .sliderList![songIndex.currentIndex]
+                                .isPlaying =
+                            !mainList[mainIndex]
+                                .sliderList![songIndex.currentIndex]
+                                .isPlaying;
                       });
                       int duration2 = await audioPlayer.getDuration();
-                      if (sliderList1[currentIndex].isPlaying == true) {
+                      if (mainList[mainIndex]
+                              .sliderList![songIndex.currentIndex]
+                              .isPlaying ==
+                          true) {
                         String url =
                             "https://samplelib.com/lib/preview/mp3/sample-15s.mp3";
                         await audioPlayer.resume();
                         audioPlayer.onPlayerStateChanged.listen((event) {
                           if (event == PlayerState.COMPLETED) {
                             setState(() {
-                              sliderList1[currentIndex].isPlaying = false;
+                              mainList[mainIndex]
+                                  .sliderList![songIndex.currentIndex]
+                                  .isPlaying = false;
                             });
                           }
                         });
@@ -183,7 +206,10 @@ class _DemoScreenState extends State<DemoScreen> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30)),
-                      child: sliderList1[currentIndex].isPlaying == true
+                      child: mainList[mainIndex]
+                                  .sliderList![songIndex.currentIndex]
+                                  .isPlaying ==
+                              true
                           ? const Icon(
                               Icons.pause,
                               color: Color(0xFFB459FE),
@@ -283,84 +309,93 @@ class _DemoScreenState extends State<DemoScreen> {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10.0, vertical: 10),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    clipBehavior: Clip.antiAlias,
-                                    height: 200,
-                                    width: 200,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: Image.network(
-                                      item.image!,
-                                      fit: BoxFit.cover,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    mainIndex = index;
+                                  });
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      clipBehavior: Clip.antiAlias,
+                                      height: 200,
+                                      width: 200,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25)),
+                                      child: Image.network(
+                                        item.image!,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    bottom: 15,
-                                    left: 5,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(25),
-                                      child: BackdropFilter(
-                                        filter: ImageFilter.blur(
-                                            sigmaX: 10.0, sigmaY: 10.0),
-                                        child: Container(
-                                          height: 70,
-                                          width: 190,
-                                          decoration: BoxDecoration(
-                                              color: Colors.black45
-                                                  .withOpacity(0.2),
-                                              borderRadius:
-                                                  BorderRadius.circular(25)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    Text(
-                                                      item.name!,
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "♫ ${item.qty} Tracks",
-                                                      style: const TextStyle(
-                                                        color: Colors.white,
+                                    Positioned(
+                                      bottom: 15,
+                                      left: 5,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(25),
+                                        child: BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 10.0, sigmaY: 10.0),
+                                          child: Container(
+                                            height: 70,
+                                            width: 190,
+                                            decoration: BoxDecoration(
+                                                color: Colors.black45
+                                                    .withOpacity(0.2),
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                        item.name!,
+                                                        style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
-                                                Container(
-                                                  width: 40,
-                                                  height: 50,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30)),
-                                                  child: const Icon(
-                                                    Icons.play_arrow,
-                                                    color: Color(0xFFB459FE),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        "♫ ${item.qty} Tracks",
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
-                                                )
-                                              ],
+                                                  Container(
+                                                    width: 40,
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30)),
+                                                    child: const Icon(
+                                                      Icons.play_arrow,
+                                                      color: Color(0xFFB459FE),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           }),
@@ -390,9 +425,9 @@ class _DemoScreenState extends State<DemoScreen> {
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
-                        itemCount: sliderList1.length,
+                        itemCount: mainList[mainIndex].sliderList!.length,
                         itemBuilder: (context, index) {
-                          final item = sliderList1[index];
+                          final item = mainList[mainIndex].sliderList![index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 5.0, vertical: 10),
@@ -412,7 +447,8 @@ class _DemoScreenState extends State<DemoScreen> {
                                                 isPlay: item.isPlaying,
                                                 audioPlayer: audioPlayer,
                                                 isActive: false,
-                                                list: sliderList1,
+                                                list: mainList[mainIndex]
+                                                    .sliderList!,
                                                 index: index,
                                               )));
                                   setState(() {});
@@ -429,7 +465,8 @@ class _DemoScreenState extends State<DemoScreen> {
                                                 isPlay: item.isPlaying,
                                                 audioPlayer: audioPlayer,
                                                 isActive: false,
-                                                list: sliderList1,
+                                                list: mainList[mainIndex]
+                                                    .sliderList!,
                                                 index: index,
                                               )));
                                   setState(() {});

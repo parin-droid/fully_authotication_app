@@ -2,7 +2,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
+import 'package:fully_authotication_app/providers/index_provider.dart';
 import 'package:fully_authotication_app/utils/sliderList.dart';
+import 'package:provider/provider.dart';
 
 class DemoScreen2 extends StatefulWidget {
   final String? audio;
@@ -28,6 +30,7 @@ class DemoScreen2 extends StatefulWidget {
 
 class _DemoScreen2State extends State<DemoScreen2> {
   String path = "";
+  bool isRepeat = false;
   List<SliderItem> sliderList = [
     SliderItem(
         "https://i.pinimg.com/236x/68/d4/d6/68d4d699e52690575178891f9a3cd17e.jpg",
@@ -55,6 +58,7 @@ class _DemoScreen2State extends State<DemoScreen2> {
   Duration position = Duration.zero;
   Duration currentPosition = Duration();
   Duration duration1 = Duration();
+  int currentIndex = 0;
   AudioPlayer audioPlayer = AudioPlayer();
 
   String formatTime(Duration duration) {
@@ -78,7 +82,10 @@ class _DemoScreen2State extends State<DemoScreen2> {
 
   @override
   void initState() {
-    //getData();
+    setState(() {
+      context.read<IndexProvider>().currentIndex = widget.index;
+      currentIndex = widget.index;
+    });
     super.initState();
     widget.audioPlayer.onDurationChanged.listen((newDuration) {
       if (mounted) {
@@ -95,28 +102,36 @@ class _DemoScreen2State extends State<DemoScreen2> {
         });
       }
     });
-    widget.audioPlayer.onPlayerCompletion.listen((event) {
-      setState(() {
-        position = Duration.zero;
-        widget.audioPlayer.stop();
-        sliderList1[widget.index].isPlaying = false;
-      });
+    widget.audioPlayer.onPlayerCompletion.listen((event) async {
+      if (mounted) {
+        setState(() {
+          // position = Duration.zero;
+          //widget.audioPlayer.stop();
+          widget.list[currentIndex].isPlaying = false;
+          if (currentIndex < widget.list.length - 1) {
+            context.read<IndexProvider>().currentIndex = currentIndex + 1;
+            currentIndex = currentIndex + 1;
+          } else {
+            context.read<IndexProvider>().currentIndex = 0;
+            currentIndex = 0;
+          }
+        });
+        await setAudio(currentIndex);
+      }
     });
-    setAudio();
+    setAudio(currentIndex);
   }
 
-  Future setAudio() async {
+  Future setAudio(int index) async {
     final player = AudioCache(prefix: 'assets/songs/');
-    final url = await player.load(widget.list[widget.index].audio!);
+    final url = await player.load(widget.list[index].audio!);
     path = url.path;
     widget.audioPlayer.setUrl(url.path, isLocal: true);
 
-    if (widget.isActive == false) {
-      widget.audioPlayer.play(path);
-      setState(() {
-        sliderList1[widget.index].isPlaying = true;
-      });
-    }
+    widget.audioPlayer.play(path);
+    setState(() {
+      widget.list[index].isPlaying = true;
+    });
   }
 
   @override
@@ -126,6 +141,7 @@ class _DemoScreen2State extends State<DemoScreen2> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<IndexProvider>();
     return Scaffold(
       body: DraggableHome(
           curvedBodyRadius: 30,
@@ -140,29 +156,30 @@ class _DemoScreen2State extends State<DemoScreen2> {
                     height: 10,
                   ),
                   CarouselSlider(
-                    options: CarouselOptions(
-                        aspectRatio: 1.2,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: false,
-                        initialPage: 2),
-                    items: widget.list
-                        .map((e) => Container(
-                              clipBehavior: Clip.antiAlias,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40)),
-                              child: Image.network(
-                                e.image!,
-                                fit: BoxFit.cover,
-                              ),
-                            ))
-                        .toList(),
-                  ),
+                      options: CarouselOptions(
+                          aspectRatio: 1.2,
+                          enlargeCenterPage: true,
+                          autoPlay: true,
+                          enableInfiniteScroll: false,
+                          viewportFraction: 0.8,
+                          initialPage: 2),
+                      items: [
+                        Container(
+                          clipBehavior: Clip.antiAlias,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40)),
+                          child: Image.network(
+                            widget.list[currentIndex].image!,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ]),
                   const SizedBox(
                     height: 20,
                   ),
                   Text(
-                    widget.list[widget.index].name!,
+                    widget.list[currentIndex].name!,
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 30,
@@ -172,7 +189,7 @@ class _DemoScreen2State extends State<DemoScreen2> {
                     height: 15,
                   ),
                   Text(
-                    widget.list[widget.index].details!,
+                    widget.list[currentIndex].details!,
                     style: TextStyle(fontSize: 20, color: Colors.grey),
                   ),
                   const SizedBox(
@@ -190,7 +207,7 @@ class _DemoScreen2State extends State<DemoScreen2> {
                         await widget.audioPlayer.seek(position);
                         await widget.audioPlayer.resume();
                         setState(() {
-                          sliderList1[widget.index].isPlaying = true;
+                          widget.list[currentIndex].isPlaying = true;
                         });
                       }),
                   Padding(
@@ -210,7 +227,67 @@ class _DemoScreen2State extends State<DemoScreen2> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (isRepeat == false) {
+                              widget.audioPlayer
+                                  .setReleaseMode(ReleaseMode.LOOP);
+                              setState(() {
+                                isRepeat = true;
+                              });
+                            } else {
+                              widget.audioPlayer
+                                  .setReleaseMode(ReleaseMode.RELEASE);
+                              setState(() {
+                                isRepeat = false;
+                              });
+                            }
+                          },
+                          icon: isRepeat == false
+                              ? const Icon(
+                                  Icons.repeat,
+                                  size: 30,
+                                  color: Color(0xFFB459FE),
+                                )
+                              : const Icon(
+                                  Icons.repeat_on_sharp,
+                                  size: 30,
+                                  color: Color(0xFFB459FE),
+                                )),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            if (currentIndex > 0) {
+                              if (widget.audioPlayer.state ==
+                                  PlayerState.PLAYING) {
+                                widget.audioPlayer.stop();
+
+                                setState(() {
+                                  widget.list[currentIndex].isPlaying = false;
+                                  provider.currentIndex = currentIndex - 1;
+                                  currentIndex = currentIndex - 1;
+                                });
+                                await setAudio(currentIndex);
+                              }
+                            } else {
+                              if (widget.audioPlayer.state ==
+                                  PlayerState.PLAYING) {
+                                widget.audioPlayer.stop();
+
+                                setState(() {
+                                  widget.list[currentIndex].isPlaying = false;
+                                  currentIndex = widget.list.length - 1;
+                                  provider.currentIndex =
+                                      widget.list.length - 1;
+                                });
+                                await setAudio(currentIndex);
+                              }
+                              /*Fluttertoast.showToast(
+                                  msg: "No song Available",
+                                  backgroundColor: const Color(0xFFB459FE));*/
+                            }
+                          },
                           icon: const Icon(
                             Icons.skip_previous,
                             size: 30,
@@ -222,27 +299,27 @@ class _DemoScreen2State extends State<DemoScreen2> {
                       GestureDetector(
                         onTap: () async {
                           if (widget.isActive == true) {
-                            if (sliderList1[widget.index].isPlaying == false) {
+                            if (widget.list[currentIndex].isPlaying == false) {
                               widget.audioPlayer.play(path);
                               setState(() {
-                                sliderList1[widget.index].isPlaying = true;
+                                widget.list[currentIndex].isPlaying = true;
                               });
                             } else {
                               widget.audioPlayer.pause();
                               setState(() {
-                                sliderList1[widget.index].isPlaying = false;
+                                widget.list[currentIndex].isPlaying = false;
                               });
                             }
                           } else {
-                            if (sliderList1[widget.index].isPlaying == false) {
+                            if (widget.list[currentIndex].isPlaying == false) {
                               widget.audioPlayer.resume();
                               setState(() {
-                                sliderList1[widget.index].isPlaying = true;
+                                widget.list[currentIndex].isPlaying = true;
                               });
                             } else {
                               widget.audioPlayer.pause();
                               setState(() {
-                                sliderList1[widget.index].isPlaying = false;
+                                widget.list[currentIndex].isPlaying = false;
                               });
                             }
                           }
@@ -253,7 +330,7 @@ class _DemoScreen2State extends State<DemoScreen2> {
                           decoration: BoxDecoration(
                               color: const Color(0xFFB459FE),
                               borderRadius: BorderRadius.circular(30)),
-                          child: sliderList1[widget.index].isPlaying == true
+                          child: widget.list[currentIndex].isPlaying == true
                               ? const Icon(
                                   Icons.pause,
                                   size: 40,
@@ -270,7 +347,36 @@ class _DemoScreen2State extends State<DemoScreen2> {
                         width: 20,
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (currentIndex < widget.list.length - 1) {
+                              if (widget.audioPlayer.state ==
+                                  PlayerState.PLAYING) {
+                                widget.audioPlayer.stop();
+
+                                setState(() {
+                                  widget.list[currentIndex].isPlaying = false;
+                                  provider.currentIndex = currentIndex + 1;
+                                  currentIndex = currentIndex + 1;
+                                });
+                                await setAudio(currentIndex);
+                              }
+                            } else {
+                              if (widget.audioPlayer.state ==
+                                  PlayerState.PLAYING) {
+                                widget.audioPlayer.stop();
+
+                                setState(() {
+                                  widget.list[currentIndex].isPlaying = false;
+                                  currentIndex = 0;
+                                  provider.currentIndex = 0;
+                                });
+                                await setAudio(currentIndex);
+                              }
+                              /*Fluttertoast.showToast(
+                                  msg: "No song Available",
+                                  backgroundColor: const Color(0xFFB459FE));*/
+                            }
+                          },
                           icon: const Icon(
                             Icons.skip_next,
                             size: 30,

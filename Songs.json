@@ -1,0 +1,122 @@
+{
+    "mainList" : [
+       {
+        "sliderList1" : [
+                {
+                    "image" : "https://i.pinimg.com/236x/68/d4/d6/68d4d699e52690575178891f9a3cd17e.jpg",
+                    "name" : "Musik Pagi",
+                    "details" : "Mamank * Popular Song",
+                    "qty" : 12,
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://w0.peakpx.com/wallpaper/156/705/HD-wallpaper-purple-flowers-design-purple-flowers-design-art-background.jpg",
+                    "name" : "Musik Anu",
+                    "details" : "Techsis * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo2.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://is5-ssl.mzstatic.com/image/thumb/Purple124/v4/ff/a1/b9/ffa1b949-1081-5a64-022b-1fb7d4c74299/source/512x512bb.jpg",
+                    "name" : "Imran khan",
+                    "details" : "Quartz * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo3.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://img.freepik.com/free-vector/copy-space-violet-wavy-shapes-background_23-2148403375.jpg?w=2000",
+                    "name" : "Honey Singh",
+                    "details" : "Vision * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo4.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://files.123freevectors.com/wp-content/original/14693-violet-background-design.jpg",
+                    "name" : "Badshah",
+                    "details" : "Protolog * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo5.mpeg?raw=true",
+                    "isPlaying" : false
+                }
+                
+        ],
+        "sliderList2" : [
+            {
+                "image" : "https://i.pinimg.com/236x/68/d4/d6/68d4d699e52690575178891f9a3cd17e.jpg",
+                "name" : "Musik Pagi",
+                "details" : "Mamank * Popular Song",
+                "qty" : 12,
+                "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo.mpeg?raw=true",
+                "isPlaying" : false
+            },
+            {
+                "image" : "https://w0.peakpx.com/wallpaper/156/705/HD-wallpaper-purple-flowers-design-purple-flowers-design-art-background.jpg",
+                "name" : "Musik Anu",
+                "details" : "Techsis * Popular Song",
+                "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo2.mpeg?raw=true",
+                "isPlaying" : false
+            },
+            {
+                "image" : "https://is5-ssl.mzstatic.com/image/thumb/Purple124/v4/ff/a1/b9/ffa1b949-1081-5a64-022b-1fb7d4c74299/source/512x512bb.jpg",
+                "name" : "Imran khan",
+                "details" : "Quartz * Popular Song",
+                "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo3.mpeg?raw=true",
+                "isPlaying" : false
+            },
+            {
+                "image" : "https://img.freepik.com/free-vector/copy-space-violet-wavy-shapes-background_23-2148403375.jpg?w=2000",
+                "name" : "Honey Singh",
+                "details" : "Vision * Popular Song",
+                "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo4.mpeg?raw=true",
+                "isPlaying" : false
+            },
+            {
+                "image" : "https://files.123freevectors.com/wp-content/original/14693-violet-background-design.jpg",
+                "name" : "Badshah",
+                "details" : "Protolog * Popular Song",
+                "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo5.mpeg?raw=true",
+                "isPlaying" : false
+            }
+            
+    ], "sliderList3" : [
+        {
+            "image" : "https://i.pinimg.com/236x/68/d4/d6/68d4d699e52690575178891f9a3cd17e.jpg",
+            "name" : "Musik Pagi",
+            "details" : "Mamank * Popular Song",
+            "qty" : 12,
+            "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo.mpeg?raw=true",
+            "isPlaying" : false
+        },
+        {
+            "image" : "https://w0.peakpx.com/wallpaper/156/705/HD-wallpaper-purple-flowers-design-purple-flowers-design-art-background.jpg",
+            "name" : "Musik Anu",
+            "details" : "Techsis * Popular Song",
+            "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo2.mpeg?raw=true",
+            "isPlaying" : false
+        },
+        {
+            "image" : "https://is5-ssl.mzstatic.com/image/thumb/Purple124/v4/ff/a1/b9/ffa1b949-1081-5a64-022b-1fb7d4c74299/source/512x512bb.jpg",
+            "name" : "Imran khan",
+            "details" : "Quartz * Popular Song",
+            "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo3.mpeg?raw=true",
+            "isPlaying" : false
+        },
+        {
+            "image" : "https://img.freepik.com/free-vector/copy-space-violet-wavy-shapes-background_23-2148403375.jpg?w=2000",
+            "name" : "Honey Singh",
+            "details" : "Vision * Popular Song",
+            "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo4.mpeg?raw=true",
+            "isPlaying" : false
+        },
+        {
+            "image" : "https://files.123freevectors.com/wp-content/original/14693-violet-background-design.jpg",
+            "name" : "Badshah",
+            "details" : "Protolog * Popular Song",
+            "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo5.mpeg?raw=true",
+            "isPlaying" : false
+        }
+        
+]
+       }
+    ]
+}

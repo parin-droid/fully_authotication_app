@@ -44,37 +44,37 @@
             "sliderList" : [
                 {
                     "image" : "https://images.pexels.com/photos/2539761/pexels-photo-2539761.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                    "name" : "Musik Pagi",
-                    "details" : "Mamank * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo.mpeg?raw=true",
-                    "isPlaying" : false
-                },
-                {
-                    "image" : "https://w0.peakpx.com/wallpaper/156/705/HD-wallpaper-purple-flowers-design-purple-flowers-design-art-background.jpg",
-                    "name" : "Musik Anu",
-                    "details" : "Techsis * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo2.mpeg?raw=true",
-                    "isPlaying" : false
-                },
-                {
-                    "image" : "https://is5-ssl.mzstatic.com/image/thumb/Purple124/v4/ff/a1/b9/ffa1b949-1081-5a64-022b-1fb7d4c74299/source/512x512bb.jpg",
                     "name" : "Imran khan",
                     "details" : "Quartz * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo3.mpeg?raw=true",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo6.mpeg?raw=true",
                     "isPlaying" : false
                 },
                 {
-                    "image" : "https://img.freepik.com/free-vector/copy-space-violet-wavy-shapes-background_23-2148403375.jpg?w=2000",
+                    "image" : "https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                     "name" : "Honey Singh",
                     "details" : "Vision * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo4.mpeg?raw=true",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo7.mpeg?raw=true",
                     "isPlaying" : false
                 },
                 {
-                    "image" : "https://files.123freevectors.com/wp-content/original/14693-violet-background-design.jpg",
+                    "image" : "https://images.pexels.com/photos/963436/pexels-photo-963436.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "name" : "Musik Pagi",
+                    "details" : "Mamank * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo8.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://images.pexels.com/photos/1045535/pexels-photo-1045535.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "name" : "Musik Anu",
+                    "details" : "Techsis * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo9.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://images.pexels.com/photos/351087/pexels-photo-351087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                     "name" : "Badshah",
                     "details" : "Protolog * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo5.mpeg?raw=true",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo10.mpeg?raw=true",
                     "isPlaying" : false
                 }
 
@@ -84,37 +84,37 @@
             "sliderList" : [
                 {
                     "image" : "https://images.pexels.com/photos/276514/pexels-photo-276514.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                    "name" : "Musik Pagi",
-                    "details" : "Mamank * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo.mpeg?raw=true",
-                    "isPlaying" : false
-                },
-                {
-                    "image" : "https://w0.peakpx.com/wallpaper/156/705/HD-wallpaper-purple-flowers-design-purple-flowers-design-art-background.jpg",
-                    "name" : "Musik Anu",
-                    "details" : "Techsis * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo2.mpeg?raw=true",
-                    "isPlaying" : false
-                },
-                {
-                    "image" : "https://is5-ssl.mzstatic.com/image/thumb/Purple124/v4/ff/a1/b9/ffa1b949-1081-5a64-022b-1fb7d4c74299/source/512x512bb.jpg",
-                    "name" : "Imran khan",
-                    "details" : "Quartz * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo3.mpeg?raw=true",
-                    "isPlaying" : false
-                },
-                {
-                    "image" : "https://img.freepik.com/free-vector/copy-space-violet-wavy-shapes-background_23-2148403375.jpg?w=2000",
-                    "name" : "Honey Singh",
-                    "details" : "Vision * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo4.mpeg?raw=true",
-                    "isPlaying" : false
-                },
-                {
-                    "image" : "https://files.123freevectors.com/wp-content/original/14693-violet-background-design.jpg",
                     "name" : "Badshah",
                     "details" : "Protolog * Popular Song",
-                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo5.mpeg?raw=true",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo11.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://images.pexels.com/photos/1055613/pexels-photo-1055613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "name" : "Honey Singh",
+                    "details" : "Vision * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo12.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://images.pexels.com/photos/1600150/pexels-photo-1600150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "name" : "Imran khan",
+                    "details" : "Quartz * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo13.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://images.pexels.com/photos/3003108/pexels-photo-3003108.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "name" : "Musik Anu",
+                    "details" : "Techsis * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo14.mpeg?raw=true",
+                    "isPlaying" : false
+                },
+                {
+                    "image" : "https://images.pexels.com/photos/2233777/pexels-photo-2233777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "name" : "Musik Pagi",
+                    "details" : "Mamank * Popular Song",
+                    "audio" : "https://github.com/parin-droid/fully_authotication_app/blob/master/lib/songs/demo15.mpeg?raw=true",
                     "isPlaying" : false
                 }
 

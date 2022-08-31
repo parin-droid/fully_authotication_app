@@ -46,6 +46,7 @@ dependencies:
   translator: ^0.1.7
   file_picker: ^5.0.1
   carousel_slider: ^4.1.1
+  http: ^0.13.5
   audioplayers: ^0.20.1
 
   pdf: ^3.8.2

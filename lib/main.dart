@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fully_authotication_app/providers/firebase_Provider.dart';
 import 'package:fully_authotication_app/providers/index_provider.dart';
+import 'package:fully_authotication_app/providers/songs_provider.dart';
 import 'package:fully_authotication_app/repositry/login_repositry.dart';
 import 'package:fully_authotication_app/screens/drawer_page.dart';
 import 'package:fully_authotication_app/utils/mytheme.dart';
@@ -35,6 +36,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => FirebaseProvider(Repository())),
         ChangeNotifierProvider(create: (_) => MyTheme()),
         ChangeNotifierProvider(create: (_) => IndexProvider()),
+        ChangeNotifierProvider(create: (_) => SongProvider()),
       ],
       child: ValueListenableBuilder(
           valueListenable: toggleTheme,

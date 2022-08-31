@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:fully_authotication_app/providers/index_provider.dart';
+import 'package:fully_authotication_app/providers/songs_provider.dart';
 import 'package:fully_authotication_app/repositry/login_repositry.dart';
 import 'package:fully_authotication_app/screens/demo_screen2.dart';
 import 'package:fully_authotication_app/utils/mytheme.dart';
@@ -22,6 +23,7 @@ class DemoScreen extends StatefulWidget {
 class _DemoScreenState extends State<DemoScreen> {
   final AudioPlayer audioPlayer = AudioPlayer();
   bool isPlay = false;
+  bool isLoading = true;
   int currentIndex = 0;
   int mainIndex = 0;
   List<SliderList> sliderList = [
@@ -64,6 +66,14 @@ class _DemoScreenState extends State<DemoScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final res = await context.read<SongProvider>().getSongList();
+      if (res) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -86,6 +96,7 @@ class _DemoScreenState extends State<DemoScreen> {
   @override
   Widget build(BuildContext context) {
     final songIndex = context.watch<IndexProvider>();
+    final songProvider = context.watch<SongProvider>();
     final Repository repository;
     final provider = context.read<MyTheme>();
     return WillPopScope(
@@ -272,241 +283,255 @@ class _DemoScreenState extends State<DemoScreen> {
               ),
             ),
             body: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Playlist",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "See more",
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ],
+              if (isLoading)
+                const Center(
+                  child: CircularProgressIndicator(),
+                )
+              else
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "Playlist",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "See more",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 230,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: sliderList.length,
-                          itemBuilder: (context, index) {
-                            final item = sliderList[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    mainIndex = index;
-                                  });
-                                },
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      clipBehavior: Clip.antiAlias,
-                                      height: 200,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      child: Image.network(
-                                        item.image!,
-                                        fit: BoxFit.cover,
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 230,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: sliderList.length,
+                            itemBuilder: (context, index) {
+                              final item = sliderList[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      mainIndex = index;
+                                    });
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        clipBehavior: Clip.antiAlias,
+                                        height: 200,
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: Image.network(
+                                          item.image!,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    ),
-                                    Positioned(
-                                      bottom: 15,
-                                      left: 5,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(25),
-                                        child: BackdropFilter(
-                                          filter: ImageFilter.blur(
-                                              sigmaX: 10.0, sigmaY: 10.0),
-                                          child: Container(
-                                            height: 70,
-                                            width: 190,
-                                            decoration: BoxDecoration(
-                                                color: Colors.black45
-                                                    .withOpacity(0.2),
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(15.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Column(
-                                                    children: [
-                                                      Text(
-                                                        item.name!,
-                                                        style: const TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        "♫ ${item.qty} Tracks",
-                                                        style: const TextStyle(
-                                                          color: Colors.white,
+                                      Positioned(
+                                        bottom: 15,
+                                        left: 5,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          child: BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 10.0, sigmaY: 10.0),
+                                            child: Container(
+                                              height: 70,
+                                              width: 190,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black45
+                                                      .withOpacity(0.2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(15.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        Text(
+                                                          item.name!,
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    width: 40,
-                                                    height: 50,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: const Icon(
-                                                      Icons.play_arrow,
-                                                      color: Color(0xFFB459FE),
+                                                        const SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Text(
+                                                          "♫ ${item.qty} Tracks",
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
-                                                  )
-                                                ],
+                                                    Container(
+                                                      width: 40,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30)),
+                                                      child: const Icon(
+                                                        Icons.play_arrow,
+                                                        color:
+                                                            Color(0xFFB459FE),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "Recently Played",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "See more",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: songProvider.songModel!
+                              .mainList![mainIndex].sliderList!.length,
+                          itemBuilder: (context, index) {
+                            final item = mainList[mainIndex].sliderList![index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 10),
+                              child: ListTile(
+                                onTap: () async {
+                                  if (audioPlayer.state ==
+                                      PlayerState.PLAYING) {
+                                    audioPlayer.stop();
+                                    setState(() {
+                                      currentIndex = index;
+                                    });
+                                    await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DemoScreen2(
+                                                  audio:
+                                                      sliderList1[index].audio!,
+                                                  isPlay: item.isPlaying,
+                                                  audioPlayer: audioPlayer,
+                                                  isActive: false,
+                                                  list: mainList[mainIndex]
+                                                      .sliderList!,
+                                                  index: index,
+                                                )));
+                                    setState(() {});
+                                  } else {
+                                    setState(() {
+                                      currentIndex = index;
+                                      item.isPlaying = !item.isPlaying;
+                                    });
+                                    await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DemoScreen2(
+                                                  audio:
+                                                      sliderList[index].audio!,
+                                                  isPlay: item.isPlaying,
+                                                  audioPlayer: audioPlayer,
+                                                  isActive: false,
+                                                  list: mainList[mainIndex]
+                                                      .sliderList!,
+                                                  index: index,
+                                                )));
+                                    setState(() {});
+                                  }
+                                },
+                                leading: Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Image.network(
+                                    item.image!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                title: Text(
+                                  item.name!,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(
+                                  item.details!,
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
+                                trailing: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.more_vert),
                                 ),
                               ),
                             );
                           }),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Recently Played",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "See more",
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ],
-                      ),
-                    ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: mainList[mainIndex].sliderList!.length,
-                        itemBuilder: (context, index) {
-                          final item = mainList[mainIndex].sliderList![index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 5.0, vertical: 10),
-                            child: ListTile(
-                              onTap: () async {
-                                if (audioPlayer.state == PlayerState.PLAYING) {
-                                  audioPlayer.stop();
-                                  setState(() {
-                                    currentIndex = index;
-                                  });
-                                  await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DemoScreen2(
-                                                audio:
-                                                    sliderList1[index].audio!,
-                                                isPlay: item.isPlaying,
-                                                audioPlayer: audioPlayer,
-                                                isActive: false,
-                                                list: mainList[mainIndex]
-                                                    .sliderList!,
-                                                index: index,
-                                              )));
-                                  setState(() {});
-                                } else {
-                                  setState(() {
-                                    currentIndex = index;
-                                    item.isPlaying = !item.isPlaying;
-                                  });
-                                  await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DemoScreen2(
-                                                audio: sliderList[index].audio!,
-                                                isPlay: item.isPlaying,
-                                                audioPlayer: audioPlayer,
-                                                isActive: false,
-                                                list: mainList[mainIndex]
-                                                    .sliderList!,
-                                                index: index,
-                                              )));
-                                  setState(() {});
-                                }
-                              },
-                              leading: Container(
-                                clipBehavior: Clip.antiAlias,
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Image.network(
-                                  item.image!,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              title: Text(
-                                item.name!,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                item.details!,
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.more_vert),
-                              ),
-                            ),
-                          );
-                        }),
-                    const SizedBox(
-                      height: 100,
-                    )
-                  ],
-                ),
-              )
+                      const SizedBox(
+                        height: 100,
+                      )
+                    ],
+                  ),
+                )
             ]),
       ),
     );

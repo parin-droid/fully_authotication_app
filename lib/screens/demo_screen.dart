@@ -450,7 +450,8 @@ class _DemoScreenState extends State<DemoScreen> {
                           itemCount: songProvider.songModel!
                               .mainList![mainIndex].sliderList!.length,
                           itemBuilder: (context, index) {
-                            final item = mainList[mainIndex].sliderList![index];
+                            final item = songProvider.songModel!
+                                .mainList![mainIndex].sliderList![index];
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 5.0, vertical: 10),
@@ -468,7 +469,7 @@ class _DemoScreenState extends State<DemoScreen> {
                                             builder: (context) => DemoScreen2(
                                                   audio:
                                                       sliderList1[index].audio!,
-                                                  isPlay: item.isPlaying,
+                                                  isPlay: item.isPlaying!,
                                                   audioPlayer: audioPlayer,
                                                   isActive: false,
                                                   list: mainList[mainIndex]
@@ -479,7 +480,7 @@ class _DemoScreenState extends State<DemoScreen> {
                                   } else {
                                     setState(() {
                                       currentIndex = index;
-                                      item.isPlaying = !item.isPlaying;
+                                      item.isPlaying = !item.isPlaying!;
                                     });
                                     await Navigator.push(
                                         context,
@@ -487,7 +488,7 @@ class _DemoScreenState extends State<DemoScreen> {
                                             builder: (context) => DemoScreen2(
                                                   audio:
                                                       sliderList[index].audio!,
-                                                  isPlay: item.isPlaying,
+                                                  isPlay: item.isPlaying!,
                                                   audioPlayer: audioPlayer,
                                                   isActive: false,
                                                   list: mainList[mainIndex]

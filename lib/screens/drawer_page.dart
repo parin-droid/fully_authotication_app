@@ -30,20 +30,28 @@ class _DrawerPageState extends State<DrawerPage> {
     super.initState();
   }
 
+  Future<bool> willPopCallBack() async {
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF25073E),
-      body: isLoading == false
-          ? ZoomDrawer(
-              style: DrawerStyle.defaultStyle,
-              showShadow: true,
-              menuScreen: MenuPage(),
-              mainScreen: DemoScreen(),
-            )
-          : Center(
-              child: const CircularProgressIndicator(),
-            ),
+    return WillPopScope(
+      onWillPop: willPopCallBack,
+      child: Scaffold(
+        backgroundColor: Color(0xFF25073E),
+        body: isLoading == false
+            ? ZoomDrawer(
+                style: DrawerStyle.defaultStyle,
+                showShadow: true,
+                menuScreen: MenuPage(),
+                mainScreen: const DemoScreen(),
+                mainScreenTapClose: true,
+              )
+            : Center(
+                child: const CircularProgressIndicator(),
+              ),
+      ),
     );
   }
 }

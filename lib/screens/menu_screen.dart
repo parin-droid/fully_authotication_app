@@ -9,7 +9,7 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  String selectedIndex = "";
+  String selectedIndex = "Home";
   List<MenuListItem> menuList = [
     MenuListItem("Home", Icons.home_filled),
     MenuListItem("Artist", Icons.perm_identity_outlined),

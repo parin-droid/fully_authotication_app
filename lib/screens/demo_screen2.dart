@@ -2,12 +2,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
+import 'package:fully_authotication_app/models/songs_model.dart';
 import 'package:fully_authotication_app/providers/index_provider.dart';
-import 'package:fully_authotication_app/utils/sliderList.dart';
 import 'package:provider/provider.dart';
 
 class DemoScreen2 extends StatefulWidget {
-  final String? audio;
+  // final String? audio;
   final List<SliderList> list;
   final int index;
   final AudioPlayer audioPlayer;
@@ -16,7 +16,7 @@ class DemoScreen2 extends StatefulWidget {
 
   DemoScreen2({
     Key? key,
-    this.audio,
+    // this.audio,
     required this.isPlay,
     required this.audioPlayer,
     required this.list,
@@ -123,12 +123,14 @@ class _DemoScreen2State extends State<DemoScreen2> {
   }
 
   Future setAudio(int index) async {
-    final player = AudioCache(prefix: 'assets/songs/');
-    final url = await player.load(widget.list[index].audio!);
-    path = url.path;
-    widget.audioPlayer.setUrl(url.path, isLocal: true);
+    String url = widget.list[index].audio!;
+    widget.audioPlayer.setUrl(url);
+    // final player = AudioCache(prefix: 'assets/songs/');
+    //final url = await player.load(widget.list[index].audio!);
+    //path = url.path;
+    // widget.audioPlayer.setUrl(url.path, isLocal: true);
 
-    widget.audioPlayer.play(path);
+    widget.audioPlayer.play(url);
     setState(() {
       widget.list[index].isPlaying = true;
     });
